@@ -13,25 +13,23 @@ public class ProcessCodeString {
 
       if (ch == '1') {
         mode = 1 - mode; // mode 토글
+      } else if (ch == '2') {
+        ret.reverse();
       } else {
-        if (mode == 0) {
-          if (i % 2 == 0) {
-            ret.append(ch);
-          }
-        } else { // mode == 1
-          if (i % 2 == 1) {
-            ret.append(ch);
+        if (mode == 0 && i % 2 == 0) {
+          ret.append(ch);
+        } else if (mode == 1 && i % 2 == 1) {
+            ret.append(Character.toUpperCase(ch));
           }
         }
       }
-    }
-
     return ret.length() == 0 ? "EMPTY" : ret.toString();
   }
 
   public static void main(String[] args) {
     ProcessCodeString p = new ProcessCodeString();
 
+    System.out.println(p.solution("ab1cd2ef1g")); // "CaF"
     System.out.println(p.solution("abc1abc1abc")); // "acbac"
     System.out.println(p.solution("abc1abc1abc1")); // "acbac"
     System.out.println(p.solution("1111")); // "EMPTY"
