@@ -4,17 +4,18 @@
  * Level 0
  */
 
-class Solution {
-  public int solution(int n) {
-    int answer = 0;
-    for (int i = 2; i <= n; i += 2) {
-      answer += i;
-    }
-    return answer;
-  }
-}
-
 public class SumOfEvenNumbers {
+  // 프로그래머스 제출용 (내부 클래스로 감싸서 다른 파일과 이름 충돌 방지)
+  static class Solution {
+    public int solution(int n) {
+      int answer = 0;
+      for (int i = 2; i <= n; i += 2) {
+        answer += i;
+      }
+      return answer;
+    }
+  }
+
   public static void main(String[] args) {
     Solution sol = new Solution();
 
