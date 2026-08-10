@@ -5,19 +5,16 @@
  */
 
 public class SumOfEvenNumbers {
-  // 프로그래머스 제출용 (내부 클래스로 감싸서 다른 파일과 이름 충돌 방지)
-  static class Solution {
-    public int solution(int n) {
-      int answer = 0;
-      for (int i = 2; i <= n; i += 2) {
-        answer += i;
-      }
-      return answer;
+  public int solution(int n) {
+    int answer = 0;
+    for (int i = 2; i <= n; i += 2) {
+      answer += i;
     }
+    return answer;
   }
 
   public static void main(String[] args) {
-    Solution sol = new Solution();
+    SumOfEvenNumbers sol = new SumOfEvenNumbers();
 
     // 테스트 케이스
     System.out.println(sol.solution(10)); // 예상: 30 (2+4+6+8+10)
