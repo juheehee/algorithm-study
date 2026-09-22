@@ -1,3 +1,5 @@
+package level2;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,36 +11,33 @@ import java.util.List;
 public class Joystick {
   public int solution(String name) {
     int n = name.length();
-    int rotSum = 0;
+    // 1. 알파벳 변경 횟수
+    int answer = 0;
 
     for (int i = 0; i < n; i++) {
-      int charIdx = name.charAt(i) - 'A';
-      rotSum += Math.min(charIdx, 26 - charIdx);
+      char c = name.charAt(i);
+
+      // 위로 이동하는 경우: A -> B -> ... -> Z
+      // 아래로 이동하는 경우: A -> Z -> ... -> B
+      answer += Math.min(c - 'A', 'Z' - c + 1);
     }
 
-    List<Integer> positions = new LinkedList<>();
+    // 2. 커서 이동 횟수
+    int move = n - 1; // 모든 문자를 오른쪽으로만 이동하는 기본 경우
+
     for (int i = 0; i < n; i++) {
-      if (name.charAt(i) != 'A') {
-        positions.add(i);
+      int next = i + 1; // i 다음부터 연속된 A의 시작 위치
+      while (next < n && name.charAt(next) == 'A') {
+        next++;
       }
+
+      int rightThenLeft = i * 2 + (n - next); // 오른쪽으로 갔다가 되돌아오는 경우
+      int leftThenRight = i + (n - next) * 2; // 왼쪽으로 갔다가 되돌아오는 경우
+
+      move = Math.min(move, Math.min(rightThenLeft, leftThenRight));
     }
 
-    if (positions.isEmpty()) {
-      return rotSum;
-    }
-
-    int pm = positions.get(positions.size() - 1);
-    int minMove = pm;
-
-    for (int i = 0; i < positions.size() - 1; i++) {
-      int pi = positions.get(i);
-      int candidate = 2 * pi + n - (positions.get(i+1));
-      if (candidate < minMove) {
-        minMove = candidate;
-      }
-    }
-
-    return rotSum + minMove;
+    return answer + move;
   }
 
   public static void main(String[] args) {
@@ -46,5 +45,8 @@ public class Joystick {
     System.out.println(sol.solution("JEROEN")); // 56
     System.out.println(sol.solution("JAN")); // 23
     System.out.println(sol.solution("ABABAAAAAAA")); // 5
+    System.out.println(sol.solution("AAAAAAZ")); // 2
+    System.out.println(sol.solution("AAABAAZ")); // 6
+    System.out.println(sol.solution("ACXBAAAC")); // 13
   }
 }
